@@ -1,1 +1,1 @@
-# hse-blockchain-lab
+Blockchain lab hse
