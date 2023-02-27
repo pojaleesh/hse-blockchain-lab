@@ -1,7 +1,7 @@
 {
   "name": "hse-blockchain-lab",
   "version": "1.0.0",
-  "description": "",
+  "description": "Blockchain lab hse",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,6 +24,12 @@
   "dependencies": {
     "@nomiclabs/hardhat-waffle": "^2.0.5",
     "@openzeppelin/contracts": "^4.8.1",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "solc": "^0.8.19",
+    "web3": "^1.8.2",
+    "web3-eth": "^1.8.2"
+  },
+  "directories": {
+    "test": "test"
   }
 }

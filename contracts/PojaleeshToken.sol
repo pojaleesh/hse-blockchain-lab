@@ -12,4 +12,26 @@ contract PojaleeshToken is Ownable, ERC20 {
     function mint(address account, uint256 amount) public onlyOwner {
         _mint(account, amount);
     }
+
+    struct Actor {
+        string id;
+        int firstParam;
+        int secondParam;
+        int thirdParam;
+    }
+
+    mapping(string => Actor) contractMapping;
+    event ActorAdded(string id, int firstParam, int secondParam, int thirdParam);
+    event ActorDeleted(string id);
+
+    function addToActor(string memory id, int firstParam, int secondParam, int thirdParam) public {
+        contractMapping[id] = Actor(id, firstParam, secondParam, thirdParam);
+        emit ActorAdded(id, firstParam, secondParam, thirdParam);
+    }
+
+    function delFromActor(string memory id) public {
+        delete contractMapping[id];
+        emit ActorDeleted(id);
+    }
+
 }
