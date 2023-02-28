@@ -31,8 +31,8 @@ func CheckErr(err error) {
 }
 
 func PrintEvents(infura *ethclient.Client, contractAddress common.Address) {
-	beginBlock := int64(8568500)
-	endBlock := int64(8568800)
+	beginBlock := int64(8571000)
+	endBlock := int64(8572000)
 
 	records, err := infura.FilterLogs(context.Background(), ethereum.FilterQuery{
 		FromBlock: big.NewInt(beginBlock),
@@ -47,7 +47,7 @@ func PrintEvents(infura *ethclient.Client, contractAddress common.Address) {
 		fmt.Println(rec.TxHash.Hex())
 		fmt.Println(rec.Data)
 
-		event, err := parsedAbi.Unpack("addToActor", rec.Data)
+		event, err := parsedAbi.Unpack("addActor", rec.Data)
 		CheckErr(err)
 
 		fmt.Println(event)
@@ -78,7 +78,7 @@ func PlaceCreateActor(infura *ethclient.Client, contractAddress common.Address, 
 	instance, err := NewMain(contractAddress, infura)
 	CheckErr(err)
 
-	result, err := instance.AddToActor(txn, "id1", big.NewInt(1), big.NewInt(2), big.NewInt(3))
+	result, err := instance.AddActor(txn, "id1", big.NewInt(1), big.NewInt(2), false)
 	CheckErr(err)
 
 	fmt.Printf("Placed event with transaction hash = %s\n", result.Hash().Hex())
@@ -92,7 +92,7 @@ func PlaceDeleteActor(infura *ethclient.Client, contractAddress common.Address, 
 	instance, err := NewMain(contractAddress, infura)
 	CheckErr(err)
 
-	result, err := instance.DelFromActor(txn, "id1")
+	result, err := instance.DelActor(txn, "id1")
 	CheckErr(err)
 
 	fmt.Printf("Placed event with transaction hash = %s\n", result.Hash().Hex())
@@ -113,7 +113,7 @@ func main() {
 	}
 
 	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
-	contractAddress := common.HexToAddress("0x929292972bc111eEC6147dA63cb0f2d39Ff91336")
+	contractAddress := common.HexToAddress("0xf0b408d7418a07C37FE90aFeA69406aeE8Cc9837")
 
 	PlaceCreateActor(infura, contractAddress, fromAddress, privateKey)
 	PlaceDeleteActor(infura, contractAddress, fromAddress, privateKey)

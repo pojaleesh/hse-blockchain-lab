@@ -16,20 +16,20 @@ contract PojaleeshToken is Ownable, ERC20 {
     struct Actor {
         string id;
         int firstParam;
-        int secondParam;
-        int thirdParam;
+        uint secondParam;
+        bool thirdParam;
     }
 
     mapping(string => Actor) contractMapping;
-    event ActorAdded(string id, int firstParam, int secondParam, int thirdParam);
+    event ActorAdded(string id, int firstParam, uint secondParam, bool thirdParam);
     event ActorDeleted(string id);
 
-    function addToActor(string memory id, int firstParam, int secondParam, int thirdParam) public {
+    function addActor(string memory id, int firstParam, uint secondParam, bool thirdParam) public {
         contractMapping[id] = Actor(id, firstParam, secondParam, thirdParam);
         emit ActorAdded(id, firstParam, secondParam, thirdParam);
     }
 
-    function delFromActor(string memory id) public {
+    function delActor(string memory id) public {
         delete contractMapping[id];
         emit ActorDeleted(id);
     }
